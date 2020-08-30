@@ -1,4 +1,4 @@
-Sample_ID,roaddist,Coniferous_3x3,Deciduous_3x3,ForestOnly_3x3,ForestWetland_3x3,MixedForest_3x3,Wetland_3x3,Coniferous_5x5,Deciduous_5x5,ForestOnly_5x5,ForestWetland_5x5,MixedForest_5x5,Wetland_5x5
+Sample_ID,roaddist,Needleleaf_3x3,Needleleaf_5x5,Broadleaf_3x3,Broadleaf_5x5,MixedForest_3x3,MixedForest_5x5,ForestOnly_3x3,ForestOnly_5x5,ForestWetland_3x3,ForestWetland_5x5,Wetland_3x3,Wetland_5x5
 bam-mn_m:MNBBA:T101R10a:1:09:2009-6-16T9:19:00Z,524313.4375,0,0,0,0,0,0,0,0,0,0,0,0
 bam-mn_m:MNBBA:T101R10a:2:09:2009-6-16T8:45:00Z,527150.25,0,0,0,0,0,0,0,0,0,0,0,0
 bam-mn_m:MNBBA:T101R10a:3:09:2009-6-16T9:3:00Z,525738.375,0,0,0,0,0,0,0,0,0,0,0,0

@@ -1,4 +1,4 @@
-Sample_ID,NEAR_DIST,Needleleaf_3x3,Needleleaf_5x5,Broadleaf_3x3,Broadleaf_5x5,MixedForest_3x3,MixedForest_5x5,ForestOnly_3x3,ForestOnly_5x5,ForestWetland_3x3,ForestWetland_5x5,Wetland_3x3,Wetland_5x5
+Sample_ID,roaddist,Needleleaf_3x3,Needleleaf_5x5,Broadleaf_3x3,Broadleaf_5x5,MixedForest_3x3,MixedForest_5x5,ForestOnly_3x3,ForestOnly_5x5,ForestWetland_3x3,ForestWetland_5x5,Wetland_3x3,Wetland_5x5
 grass_m:12UWA85:03:2018-6-9T5:27:00Z:50.171474:-109.827553,0.108933528,0,0,0,0,0,0,0,0,0,0,0,0
 grass_m:12UWA85:04:2018-6-9T6:17:00Z:50.109009:-109.790222,0.044694431,0,0,0,0,0,0,0,0,0,0,0,0
 grass_m:12UWA85:10:2018-6-9T5:54:00Z:50.146191:-109.782066,0.223615715,0,0,0,0,0,0,0,0,0,0,0,0
