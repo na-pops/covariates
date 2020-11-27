@@ -34,7 +34,8 @@ for (i in 1:n_proj)
                                        format = "%Y-%m-%dT%H:%M:%SZ", 
                                        tz = "UTC")
   # Extract Julian day
-  project_sample$JD <- project_sample$date_time$yday
+  project_sample$JD <- (project_sample$date_time$yday) / 365
+  project_sample$JD2 <- (project_sample$JD)^2
   
   # Create temp df containing no NAs for time or lat/long
   temp <- project_sample[which(!is.na(project_sample$date_time)), ]
@@ -63,16 +64,20 @@ for (i in 1:n_proj)
   temp$TSSR <- as.numeric(difftime(temp$date_time,
                                    temp$time,
                                    units = "hours"))
+  temp$TSSR <- temp$TSSR / 24
+  temp$TSSR2 <- (temp$TSSR)^2
   
   # Merge this temp df back into the original, keeping the NAs
   #   where TSSR cannot be calculated.
   project_sample <- merge(x = project_sample,
-                          y = temp[, c("Sample_ID", "TSSR")],
+                          y = temp[, c("Sample_ID", "TSSR", "TSSR2")],
                           by = "Sample_ID",
                           all = TRUE)
   
   # Output predictors by project
-  write.table(x = project_sample[, c("Sample_ID", "JD", "TSSR")],
+  write.table(x = project_sample[, c("Sample_ID",
+                                     "JD", "JD2",
+                                     "TSSR", "TSSR2")],
               file = paste0("temporal/project-",
                             p,
                             ".csv"),
