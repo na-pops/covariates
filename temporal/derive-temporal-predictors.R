@@ -3,7 +3,7 @@
 # NA-POPS: covariates
 # derive-temporal-predictors.R
 # Created October 2020
-# Last Updated October 2020
+# Last Updated December 2020
 
 ####### Import Libraries and External Files #######
 
