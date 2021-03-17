@@ -9,6 +9,7 @@
 
 library(maptools)
 library(here)
+library(sf)
 
 source("../utilities/get-data.R")
 
@@ -17,6 +18,9 @@ source("../utilities/get-data.R")
 # Get project names
 project_list <- read.table(here::here("../utilities/proj-list"))
 n_proj <- nrow(project_list)
+bcr <- read_sf(dsn = system.file("maps",
+                                 package="bbsBayes"),
+               layer = "BBS_BCR_strata")
 
 for (i in 1:n_proj)
 {
@@ -67,17 +71,26 @@ for (i in 1:n_proj)
   temp$TSSR <- temp$TSSR / 24
   temp$TSSR2 <- (temp$TSSR)^2
   
+  # Get BCR
+  pts <- st_as_sf(data.frame(coords), coords = 1:2, crs = 4326)
+  bcr <- bcr %>% st_transform(st_crs(pts))
+  bcr_names <- bcr$ST_12
+  intersections <- as.integer(st_intersects(pts, bcr))
+  bcr_char <- bcr_names[intersections]
+  temp$BCR <- as.numeric(substring(bcr_char, first = 4))
+  
+  
   # Merge this temp df back into the original, keeping the NAs
   #   where TSSR cannot be calculated.
   project_sample <- merge(x = project_sample,
-                          y = temp[, c("Sample_ID", "TSSR", "TSSR2")],
+                          y = temp[, c("Sample_ID", "TSSR", "TSSR2", "BCR")],
                           by = "Sample_ID",
                           all = TRUE)
   
   # Output predictors by project
   write.table(x = project_sample[, c("Sample_ID",
                                      "JD", "JD2",
-                                     "TSSR", "TSSR2")],
+                                     "TSSR", "TSSR2", "BCR")],
               file = paste0("temporal/project-",
                             p,
                             ".csv"),
