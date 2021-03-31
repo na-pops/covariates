@@ -18,8 +18,7 @@ source("../utilities/get-data.R")
 # Get project names
 project_list <- read.table(here::here("../utilities/proj-list"))
 n_proj <- nrow(project_list)
-bcr <- read_sf(dsn = system.file("maps",
-                                 package="bbsBayes"),
+bcr <- read_sf("../utilities/shp/bcr",
                layer = "BBS_BCR_strata")
 
 for (i in 1:n_proj)
@@ -75,7 +74,7 @@ for (i in 1:n_proj)
   pts <- st_as_sf(data.frame(coords), coords = 1:2, crs = 4326)
   bcr <- bcr %>% st_transform(st_crs(pts))
   bcr_names <- bcr$ST_12
-  intersections <- as.integer(st_intersects(pts, bcr))
+  intersections <- as.integer(st_nearest_feature(pts, bcr))
   bcr_char <- bcr_names[intersections]
   temp$BCR <- as.numeric(substring(bcr_char, first = 4))
   
