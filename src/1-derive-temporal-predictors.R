@@ -3,7 +3,7 @@
 # NA-POPS: covariates
 # 1-derive-temporal-predictors.R
 # Created October 2020
-# Last Updated March 2021
+# Last Updated November 2021
 
 ####### Import Libraries and External Files #######
 
@@ -20,6 +20,7 @@ project_list <- read.table(here::here("../utilities/proj-list"))
 n_proj <- nrow(project_list)
 bcr <- read_sf("../utilities/shp/bcr",
                layer = "BBS_BCR_strata")
+sf::sf_use_s2(FALSE)
 
 for (i in 1:n_proj)
 {
