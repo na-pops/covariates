@@ -39,22 +39,10 @@ for (i in 1:n_proj)
                                        tz = "UTC")
   # Extract Julian day
   project_sample$JD <- (project_sample$date_time$yday) / 365
-  project_sample$JD2 <- (project_sample$JD)^2
   
   # Create temp df containing no NAs for time or lat/long
   temp <- project_sample[which(!is.na(project_sample$date_time)), ]
   temp <- temp[which(!is.na(temp$Latitude)), ]
-  if (nrow(temp) == 0)
-  {
-    project_sample$TSSR <- NA
-    write.table(x = project_sample[, c("Sample_ID", "JD", "TSSR")],
-                file = paste0("temporal/project-",
-                              p,
-                              ".csv"),
-                row.names = FALSE,
-                sep = ",")
-    next()
-  }
 
   # Calculate time since local sunrise
   coords <- matrix(c(temp$Longitude, temp$Latitude),
@@ -89,7 +77,7 @@ for (i in 1:n_proj)
   
   # Output predictors by project
   write.table(x = project_sample[, c("Sample_ID",
-                                     "JD", "JD2",
+                                     "JD",
                                      "TSSR", "TSSR2", "BCR")],
               file = paste0("temporal/project-",
                             p,
