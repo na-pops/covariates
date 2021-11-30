@@ -38,7 +38,8 @@ for (i in 1:n_proj)
                                        format = "%Y-%m-%dT%H:%M:%SZ", 
                                        tz = "UTC")
   # Extract Julian day
-  project_sample$JD <- (project_sample$date_time$yday) / 365
+  project_sample$OD <- (project_sample$date_time$yday)# / 365
+  #project_sample$OD2 <- (project_sample$OD)^2
   
   # Create temp df containing no NAs for time or lat/long
   temp <- project_sample[which(!is.na(project_sample$date_time)), ]
@@ -56,8 +57,8 @@ for (i in 1:n_proj)
   temp$TSSR <- as.numeric(difftime(temp$date_time,
                                    temp$time,
                                    units = "hours"))
-  temp$TSSR <- temp$TSSR / 24
-  temp$TSSR2 <- (temp$TSSR)^2
+  #temp$TSSR <- temp$TSSR / 24
+  #temp$TSSR2 <- (temp$TSSR)^2
   
   # Get BCR
   pts <- st_as_sf(data.frame(coords), coords = 1:2, crs = 4326)
@@ -71,14 +72,12 @@ for (i in 1:n_proj)
   # Merge this temp df back into the original, keeping the NAs
   #   where TSSR cannot be calculated.
   project_sample <- merge(x = project_sample,
-                          y = temp[, c("Sample_ID", "TSSR", "TSSR2", "BCR")],
+                          y = temp[, c("Sample_ID", "TSSR", "BCR")],
                           by = "Sample_ID",
                           all = TRUE)
   
   # Output predictors by project
-  write.table(x = project_sample[, c("Sample_ID",
-                                     "JD",
-                                     "TSSR", "TSSR2", "BCR")],
+  write.table(x = project_sample[, c("Sample_ID", "OD", "TSSR", "BCR")],
               file = paste0("temporal/project-",
                             p,
                             ".csv"),
